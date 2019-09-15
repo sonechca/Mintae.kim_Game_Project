@@ -41,7 +41,7 @@ int main() {
         }
         cout << "Bingo Line : " << iBingo << endl;
         
-        // over 5 lines of bingo, Finish the game
+        // over 5 bingo lines, Finish the game
         if(iBingo >= 5)
             break;
         cout << "Input a number (0 : exit) : ";
