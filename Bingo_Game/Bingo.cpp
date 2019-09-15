@@ -23,6 +23,8 @@ int main() {
         iNumber[idx2] = iTemp;
     }
     
+    int iBingo = 0;
+    
     while (true) {
         system("cls");
         
@@ -37,6 +39,11 @@ int main() {
             }
             cout << endl;
         }
+        cout << "Bingo Line : " << iBingo << endl;
+        
+        // over 5 lines of bingo, Finish the game
+        if(iBingo >= 5)
+            break;
         cout << "Input a number (0 : exit) : ";
         int iInput;
         cin >> iInput;
@@ -69,6 +76,49 @@ int main() {
         // continue the while again
         if(bAcc)
             continue;
+        
+        //When we check the bingo line every time, we will count the bingo line with initializing
+        iBingo = 0;
+        
+        //Check vertical, horizontal line
+        int iStar1 = 0, iStar2 = 0;
+        for (int i = 0; i < 5; i++) {
+            // Before checking the one line, initialize star 0
+            iStar1 = iStar2 = 0;
+            
+            for (int j = 0; j < 5; j++) {
+                // Count the horizotal stars
+                if(iNumber[i * 5 + j] == INT_MAX)
+                    ++iStar1;
+                
+                // Count the vertical stars
+                if(iNumber[j * 5 + i] == INT_MAX)
+                    ++iStar2;
+            }
+            // after j for iteration, we can put the horizontal star in iStar1 variable
+            // if iStar1 is 5, we can guess this line is bingo
+            if(iStar1 == 5)
+                ++iBingo;
+            
+            if(iStar2 == 5)
+                ++iBingo;
+        }
+        // From left-top size to right-bottom bingo line check
+        iStar1 = 0;
+        for (int i = 0; i < 25; i += 6) {
+            if(iNumber[i] == INT_MAX)
+                ++iStar1;
+        }
+        if(iStar1 == 5 )
+            ++iBingo;
+        // From right-top size to left-bottom bingo line check
+        iStar1 = 0;
+        for (int i = 4; i <=20; i +=4) {
+            if(iNumber[i] == INT_MAX)
+                ++iStar1;
+        }
+        if(iStar1 == 5)
+            ++iBingo;
     }
     
     
