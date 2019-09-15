@@ -1,8 +1,10 @@
 # Personal_Game_Project
 
-I want to improve my c++ level.
+I want to improve my c++ level, so I start studying by using online lecture.
 
-It is my Personal project and practice diary
+I will try to understand fully and I will make game by myself again.
 
-Reference by Assort Rock Game Academy
+It is my Personal project and practice Area.
+
+# Reference by Assort Rock Game Academy
 http://assortrock.com/
