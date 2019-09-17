@@ -6,10 +6,12 @@ using namespace std;
 int main() {
     srand((unsigned int)time(0));
     int iNumber[25] = {};
+    int iAINumber[25] = {};
     
     // Put numbers between 1~25
     for (int i = 0; i < 25; i++) {
         iNumber[i] = i + 1;
+        iAINumber[i] = i + 1;
     }
     
     //mix number
@@ -21,14 +23,23 @@ int main() {
         iTemp = iNumber[idx1];
         iNumber[idx1] = iNumber[idx2];
         iNumber[idx2] = iTemp;
+        
+        //AI number mix
+        idx1 = rand() % 25;
+        idx2 = rand() % 25;
+        
+        iTemp = iAINumber[idx1];
+        iAINumber[idx1] = iAINumber[idx2];
+        iAINumber[idx2] = iTemp;
     }
     
-    int iBingo = 0;
+    int iBingo = 0, iAIBingo = 0;
     
     while (true) {
         system("cls");
         
         // Print number 5 x 5 format
+        cout << "============ player ============" << endl;
         for (int i=0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 
@@ -39,11 +50,30 @@ int main() {
             }
             cout << endl;
         }
-        cout << "Bingo Line : " << iBingo << endl;
+        cout << "Bingo Line : " << iBingo << endl << endl;
+        //AI output bingo
+        cout << "============ AI ============" << endl;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if(iAINumber[i * 5 + j] == INT_MAX)
+                    cout << "*\t";
+                else
+                    cout << iAINumber[i * 5 + j] << '\t';
+            }
+            cout << endl;
+        }
+        // output AI bingo line
+        cout << "AI Bingo Line : " << iAIBingo << endl;
         
-        // over 5 bingo lines, Finish the game
-        if(iBingo >= 5)
+        // over 5 lines of bingo, Finish the game
+        if(iBingo >= 5){
+            cout << "Player win" << endl;
             break;
+        }
+        else if(iAIBingo >= 5){
+            cout << "AI win" << endl;
+            break;
+        }
         cout << "Input a number (0 : exit) : ";
         int iInput;
         cin >> iInput;
@@ -76,7 +106,13 @@ int main() {
         // continue the while again
         if(bAcc)
             continue;
-        
+        // if AI number is not duplicated, change * as well
+        for (int i = 0; i < 25; i++) {
+            if(iAINumber[i] == iInput){
+                iAINumber[i] = INT_MAX;
+                break;
+            }
+        }
         //When we check the bingo line every time, we will count the bingo line with initializing
         iBingo = 0;
         
